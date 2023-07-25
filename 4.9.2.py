@@ -31,9 +31,12 @@ ords_prods_cust.head()
 
 
 ######2
-#bar chart of number of orders per day of the week
+#bar chart
 bar = ords_prods_cust['order_day_of_week'].value_counts().plot.bar(color =['purple', 'red', 'pink', 'orange', 
                                                                      'yellow', 'green', 'blue'])
+bar.set_title('Orders for each day of week')
+bar.set_xlabel('Day of week (Sat-Fri)', fontweight = 'bold')
+bar.set_ylabel('Number of customer orders (millions)', fontweight = 'bold')
 
 ##The busiest day of week to order is Sunday and least busy is Thursday.
 
@@ -42,11 +45,11 @@ bar = ords_prods_cust['order_day_of_week'].value_counts().plot.bar(color =['purp
 #sort_index() can also be used when printing value counts
 
 #save bar chart as png file
-bar.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'bar_orders_dow.png'))
+bar.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'bar_orders_dow.png'))
 
 
 
-#histogram of prices of products
+#histogram
 ords_prods_cust['prices'].plot.hist(bins=25)
 ords_prods_cust['prices'].describe() #max value is very high
 
@@ -62,16 +65,19 @@ ords_prods_cust['prices'].max() #check max value of column, is now $25
 
 
 hist = ords_prods_cust['prices'].plot.hist(bins = 70)
+hist.set_title('Distribution of store item prices')
+hist.set_xlabel('Price (dollars)', fontweight = 'bold')
+hist.set_ylabel('Frequency', fontweight = 'bold')
 
 ##Most prices are between $0-$15.
 
 #save histogram as png file
-hist.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'hist_prices.png'))
+hist.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'hist_prices.png'))
 
 
 
 
-#line chart of how prices fluctuate over the week
+#line chart
 #using the entire dataset would take up too much space, need to randomly subset
 
 #set seed
@@ -91,9 +97,13 @@ df = small[['order_day_of_week', 'prices']]
 
 
 line = sns.lineplot(data=df, x='order_day_of_week', y='prices')
+line.set_xlabel('Order day of week (Sat-Fri)', fontweight = 'bold')
+line.set_ylabel('Average order price (dollars)', fontweight = 'bold')
+line.set_title('Average order prices each day of week')
+
 
 #save line chart as png file
-line.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_order_dow_prices.png'))
+line.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'line_order_dow_prices.png'))
 
 
 
@@ -102,13 +112,16 @@ line.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_ord
 ######3
 #descriptive findings of sales - histogram order hour of day
 hist2 = ords_prods_cust['order_hour_of_day'].plot.hist(bins = 24)
+hist2.set_xlabel('Hour of day', fontweight = 'bold')
+hist2.set_ylabel('Customer orders (millions)', fontweight = 'bold')
+hist2.set_title('Customer orders for every hour of day')
 
 
 ##The histogram indicates that most sales/orders are being placed between the hours of about 9 AM
 ##to 4 PM (16:00, 16 in histogram) since these bars have the highest frequencies of orders.
 
 #save histogram
-hist2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'hist_order_hod.png'))
+hist2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'hist_order_hod.png'))
 
 
 
@@ -117,13 +130,17 @@ hist2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'hist_or
 ######4
 #bar chart for loyalty flags
 bar2 = ords_prods_cust['loyalty_flag'].value_counts().plot.bar()
+bar2.set_title('Loyalty status of customers')
+bar2.set_xlabel('Loyalty status', fontweight = 'bold')
+bar2.set_ylabel('Number of customers (tens of millions)', fontweight = 'bold')
+
 
 
 ##This bar chart indicates that a majority of customers are regular customers, meaning they placed
 ##between 11-40 orders.
 
 #save bar chart
-bar2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'bar_loyalty_status.png'))
+bar2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'bar_loyalty_status.png'))
 
 
 
@@ -136,9 +153,12 @@ df2 = small[['order_hour_of_day', 'prices']]
 
 
 line2 = sns.lineplot(data=df2, x='order_hour_of_day', y='prices')
+line2.set_xlabel('Hour of day', fontweight = 'bold')
+line2.set_ylabel('Average order price (dollars)', fontweight = 'bold')
+line2.set_title('Average order prices every hour of day')
 
 #save line chart
-line2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_order_hod_prices.png'))
+line2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'line_order_hod_prices.png'))
 
 
 
@@ -147,13 +167,16 @@ line2.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_or
 #customer demographics - age and number of dependants
 df3 = small[['age', 'n_dependants']]
 line3 = sns.lineplot(data=df3, x='age', y='n_dependants')
+line3.set_xlabel('Age', fontweight = 'bold')
+line3.set_ylabel('Average number of dependants', fontweight = 'bold')
+line3.set_title('Number of dependents over age range')
 
 ##There is no clear relationship between age and the number of dependants the customers have.
 ##The line chart shows the number of dependants is up and down across age ranges, there are
 ##no ages that have significantly more or less dependants.
 
 #save line chart
-line3.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_age_dependants.png'))
+line3.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'line_age_dependants.png'))
 
 
 
@@ -161,10 +184,13 @@ line3.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'line_ag
 ######7
 #relationship between age and spending power/income
 scatter = sns.scatterplot(data=ords_prods_cust, x='age', y='income')
+scatter.set_xlabel('Age', fontweight = 'bold')
+scatter.set_ylabel('Income (dollars)', fontweight = 'bold')
+scatter.set_title('Income levels vs age')
 
 ##The scatterplot shows that there is also no relationship between age and income, although there are
 ##some higher incomes around the 40-80 age range that there aren't in the 20-40 age range. A majority
 ##of all people in the dataset have salaries between 0-$300k per year.
 
 #save scatterplot
-scatter.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', 'scatter_age_income.png'))
+scatter.figure.savefig(os.path.join(path, '04 Analysis','Visualizations', '4.9', 'scatter_age_income.png'))
